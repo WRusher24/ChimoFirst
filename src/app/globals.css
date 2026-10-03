@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+@theme {
+  /* Typography */
+  --font-sans: var(--font-heebo), "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-plex), "SFMono-Regular", Consolas, monospace;
+
+  /* Clean Industrial Lab ink scale — higher number = lighter surface */
+  --color-ink-100: #0f172a; /* headings (deep navy) */
+  --color-ink-200: #1e293b;
+  --color-ink-300: #475569;
+  --color-ink-400: #64748b;
+  --color-ink-500: #94a3b8;
+  --color-ink-600: #cbd5e1;
+  --color-ink-700: #e2e8f0;
+  --color-ink-800: #eef2f7;
+  --color-ink-850: #f6f8fb;
+  --color-ink-900: #fbfcfe;
+  --color-ink-950: #eef2f7; /* page background */
+
+  /* Safety blue accent scale */
+  --color-accent-200: #bae6fd;
+  --color-accent-300: #7dd3fc;
+  --color-accent-400: #38bdf8;
+  --color-accent-500: #0284c7;
+  --color-accent-600: #0369a1;
+  --color-accent-700: #075985;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background-color: var(--color-ink-950);
+  background-image:
+    radial-gradient(1100px 520px at 88% -14%, rgb(2 132 199 / 0.055), transparent 62%),
+    radial-gradient(820px 420px at -6% 112%, rgb(22 163 74 / 0.04), transparent 58%);
+  background-attachment: fixed;
+  color: var(--color-ink-100);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgb(2 132 199 / 0.22);
+  color: var(--color-ink-100);
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-ink-600);
+  border-radius: 999px;
+  border: 2px solid var(--color-ink-950);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-ink-500);
+}
+
+/* Remove number-input spinners for a clean industrial look */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* Shared form field */
+@utility field {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-ink-600);
+  background: #ffffff;
+  padding: 0.65rem 0.9rem;
+  font-size: 0.9rem;
+  color: var(--color-ink-100);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+
+  &::placeholder {
+    color: var(--color-ink-500);
+  }
+  &:focus {
+    outline: none;
+    border-color: var(--color-accent-500);
+    box-shadow: 0 0 0 3px rgb(2 132 199 / 0.16);
+  }
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+
+/* Soft glow ring used on the live step */
+@utility glow-accent {
+  box-shadow:
+    0 0 0 1px rgb(2 132 199 / 0.3),
+    0 10px 34px -10px rgb(2 132 199 / 0.3);
+}
+
+@keyframes pulseSoft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+@utility animate-pulse-soft {
+  animation: pulseSoft 1.6s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Skeleton shimmer for loading states */
+@utility skeleton {
+  border-radius: 0.75rem;
+  background: linear-gradient(
+    100deg,
+    rgb(15 23 42 / 0.05) 40%,
+    rgb(15 23 42 / 0.1) 50%,
+    rgb(15 23 42 / 0.05) 60%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
